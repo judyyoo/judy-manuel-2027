@@ -413,12 +413,71 @@
   }
 })();
 </script>
- <div id="pw-gate-overlay" style="position:fixed;inset:0;background:#111;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;cursor:auto;font-family:sans-serif;">
-  <p style="margin-bottom:16px;font-size:18px;">Enter the password to view this page</p>
-  <input id="pw-gate-input" type="password" style="padding:10px;font-size:16px;border-radius:6px;border:none;margin-bottom:12px;">
-  <button onclick="checkPwGate()" style="padding:10px 20px;font-size:16px;border-radius:6px;border:none;cursor:pointer;">Enter</button>
-  <p id="pw-gate-error" style="color:#ff6b6b;margin-top:10px;display:none;">Incorrect password, try again.</p>
+<style>
+  #pw-gate-overlay {
+    position: fixed;
+    inset: 0;
+    background: #F6EDEA; /* 1. BACKGROUND COLOR — change this hex code */
+    color: #333333; /* text color — keep this readable against your background */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    font-family: 'Georgia', serif; /* 2. FONT — swap for any font you like */
+  }
+  #pw-gate-overlay p {
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+  }
+  #pw-gate-input {
+    padding: 12px 16px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 16px;
+    font-family: inherit;
+    text-align: center;
+  }
+  #pw-gate-button {
+    /* 3. BUTTON UI — customize below */
+    padding: 12px 32px;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 30px;
+    border: 1px solid #333333;
+    background: transparent;
+    color: #333333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+  #pw-gate-button:hover {
+    background: #333333;
+    color: #f5efe6;
+  }
+  #pw-gate-error {
+    color: #b04a4a;
+    margin-top: 12px;
+    display: none;
+    font-size: 14px;
+  }
+  /* 4. CURSOR FIX — forces the cursor to show, overriding the site's custom cursor script */
+  #pw-gate-overlay, #pw-gate-overlay * {
+    cursor: auto !important;
+  }
+</style>
+
+<div id="pw-gate-overlay">
+  <p>Enter the password to view this page</p>
+  <input id="pw-gate-input" type="password">
+  <br>
+  <button id="pw-gate-button" onclick="checkPwGate()">Enter</button>
+  <p id="pw-gate-error">Incorrect password, try again.</p>
 </div>
+
 <script>
   const PW_GATE_PASSWORD = "amor";
   if (sessionStorage.getItem("pw_gate_unlocked") === "true") {
@@ -436,6 +495,7 @@
   document.getElementById("pw-gate-input")?.addEventListener("keypress", function(e) {
     if (e.key === "Enter") checkPwGate();
   });
+</script>
 </script>
 </body>
 </html>
