@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> <meta name="robots" content="noindex, nofollow">
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Judy Yoo & Manuel Diaz-Granados — Save the Date</title>
@@ -412,6 +412,30 @@
     })(start);
   }
 })();
+</script>
+ <div id="pw-gate-overlay" style="position:fixed;inset:0;background:#111;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;font-family:sans-serif;">
+  <p style="margin-bottom:16px;font-size:18px;">Enter the password to view this page</p>
+  <input id="pw-gate-input" type="password" style="padding:10px;font-size:16px;border-radius:6px;border:none;margin-bottom:12px;">
+  <button onclick="checkPwGate()" style="padding:10px 20px;font-size:16px;border-radius:6px;border:none;cursor:pointer;">Enter</button>
+  <p id="pw-gate-error" style="color:#ff6b6b;margin-top:10px;display:none;">Incorrect password, try again.</p>
+</div>
+<script>
+  const PW_GATE_PASSWORD = "YOUR_PASSWORD_HERE";
+  if (sessionStorage.getItem("pw_gate_unlocked") === "true") {
+    document.getElementById("pw-gate-overlay").style.display = "none";
+  }
+  function checkPwGate() {
+    const input = document.getElementById("pw-gate-input").value;
+    if (input === PW_GATE_PASSWORD) {
+      sessionStorage.setItem("pw_gate_unlocked", "true");
+      document.getElementById("pw-gate-overlay").style.display = "none";
+    } else {
+      document.getElementById("pw-gate-error").style.display = "block";
+    }
+  }
+  document.getElementById("pw-gate-input")?.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") checkPwGate();
+  });
 </script>
 </body>
 </html>
